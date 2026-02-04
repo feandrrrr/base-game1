@@ -76,7 +76,7 @@ export function DailyTap() {
         return;
       }
 
-      const id = await sendCalls(wagmiConfig, {
+      const { id } = await sendCalls(wagmiConfig, {
         account: address,
         chainId: base.id,
         calls: [

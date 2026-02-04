@@ -66,9 +66,11 @@ Paste the RPC URL into `NEXT_PUBLIC_PAYMASTER_URL`.
 npm run dev
 ```
 
-## Local database
+## Database
 
-SQLite database is created at `data/leaderboard.db`.
+- Local dev uses SQLite at `data/leaderboard.db`.
+- Vercel serverless uses in-memory storage by default (leaderboards reset on cold starts).
+- For persistent production data, connect a KV/DB (recommended).
 
 ## Deployment
 

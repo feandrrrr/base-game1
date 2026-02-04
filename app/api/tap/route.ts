@@ -63,18 +63,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'Transaction not found' }, { status: 404 });
     }
 
-    try {
-      const decoded = decodeFunctionData({
-        abi: TAP_CONTRACT_ABI,
-        data: tx.input,
-      });
-      if (decoded.functionName !== 'tap') {
-        return NextResponse.json({ message: 'Invalid function call' }, { status: 400 });
-      }
-    } catch {
-      return NextResponse.json({ message: 'Invalid transaction data' }, { status: 400 });
-    }
-
     const hasEvent = receipt?.logs?.some((log) => {
       if (log.address.toLowerCase() !== TAP_CONTRACT_ADDRESS.toLowerCase()) {
         return false;

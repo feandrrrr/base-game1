@@ -113,8 +113,10 @@ export function DailyTap() {
         return;
       }
       setPlayer(data.player);
-    } catch {
-      setError('Onchain transaction failed or was rejected.');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Unknown error';
+      console.error('Daily tap failed', err);
+      setError(`Onchain transaction failed: ${message}`);
     } finally {
       setIsLoading(false);
     }

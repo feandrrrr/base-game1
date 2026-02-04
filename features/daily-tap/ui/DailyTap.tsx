@@ -8,7 +8,6 @@ import { TAP_CONTRACT_ABI, TAP_CONTRACT_ADDRESS } from '@/shared/config/contract
 import { REWARD_POOLS } from '@/shared/config/game';
 import { wagmiConfig } from '@/shared/config/wagmi';
 import { getClientId } from '@/shared/lib/clientId';
-import { formatCountdown, getNextUtcMidnight } from '@/shared/lib/time';
 import { Button } from '@/shared/ui/Button';
 import { CoinButton } from '@/shared/ui/CoinButton';
 import { getCapabilities, sendCalls, waitForCallsStatus } from '@wagmi/core';
@@ -19,15 +18,11 @@ import { useAccount } from 'wagmi';
 import { DailyAnimation } from './DailyAnimation';
 import styles from './DailyTap.module.css';
 
-const DAILY_RESET_TEXT = 'Next onchain tap available in';
-
 export function DailyTap() {
   const { context } = useMiniApp();
   const [player, setPlayer] = useState<PlayerRecord | null>(null);
   const [error, setError] = useState('');
-  const [nextAvailableAt, setNextAvailableAt] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [now, setNow] = useState(Date.now());
   const { address } = useAccount();
 
   const fid = useMemo(() => {
@@ -39,18 +34,12 @@ export function DailyTap() {
   }, [context?.user?.displayName, context?.user?.username]);
 
   useEffect(() => {
-    const timer = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
     const load = async () => {
       const res = await fetch(`/api/leaderboard?mode=daily&fid=${fid}`);
       const data = await res.json();
       if (data?.player) {
         setPlayer(data.player);
       }
-      setNextAvailableAt(getNextUtcMidnight());
     };
     load();
   }, [fid]);
@@ -121,13 +110,9 @@ export function DailyTap() {
       const data = await res.json();
       if (!res.ok) {
         setError(data?.message || 'Tap failed.');
-        if (data?.nextAvailableAt) {
-          setNextAvailableAt(data.nextAvailableAt);
-        }
         return;
       }
       setPlayer(data.player);
-      setNextAvailableAt(data.nextAvailableAt ?? getNextUtcMidnight());
     } catch {
       setError('Onchain transaction failed or was rejected.');
     } finally {
@@ -135,8 +120,7 @@ export function DailyTap() {
     }
   };
 
-  const canTap = !nextAvailableAt || nextAvailableAt <= now;
-  const countdown = nextAvailableAt ? formatCountdown(nextAvailableAt - now) : null;
+  const canTap = true;
 
   return (
     <section className={styles.section}>
@@ -151,8 +135,8 @@ export function DailyTap() {
       <DailyAnimation />
 
       <CoinButton
-        label={canTap ? 'Claim daily onchain tap' : 'Daily tap locked'}
-        hint={canTap ? '1 point on success' : `${DAILY_RESET_TEXT}: ${countdown}`}
+        label="Claim daily onchain tap"
+        hint="1 point on success"
         disabled={!canTap || isLoading}
         onClick={handleTap}
       />

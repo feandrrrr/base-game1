@@ -1,0 +1,26 @@
+.wrap {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(8, 16, 30, 0.8);
+  border: 1px solid rgba(92, 146, 255, 0.3);
+  color: #f4f8ff;
+  font-size: 0.75rem;
+  z-index: 20;
+}
+
+.status {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(244, 248, 255, 0.85);
+}
+
+.address {
+  font-weight: 600;
+  color: rgba(244, 248, 255, 0.95);
+}

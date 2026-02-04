@@ -4,6 +4,7 @@ import { SafeArea } from "@/shared/ui/SafeArea";
 import { farcasterConfig } from "../farcaster.config";
 import { Providers } from "./providers";
 import "./globals.css";
+import { TopBar } from "@/widgets/topbar/ui/TopBar";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -47,7 +48,10 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${sourceCodePro.variable}`}>
         <Providers>
-          <SafeArea>{children}</SafeArea>
+          <SafeArea>
+            <TopBar />
+            {children}
+          </SafeArea>
         </Providers>
       </body>
     </html>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Source_Code_Pro } from "next/font/google";
-import { SafeArea } from "./components/SafeArea";
+import { SafeArea } from "@/shared/ui/SafeArea";
 import { farcasterConfig } from "../farcaster.config";
 import { Providers } from "./providers";
 import "./globals.css";
@@ -41,12 +41,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Providers>
-      <html lang="en">
-        <body className={`${inter.variable} ${sourceCodePro.variable}`}>
+    <html lang="en">
+      <body className={`${inter.variable} ${sourceCodePro.variable}`}>
+        <Providers>
           <SafeArea>{children}</SafeArea>
-        </body>
-      </html>
-    </Providers>
+        </Providers>
+      </body>
+    </html>
   );
 }

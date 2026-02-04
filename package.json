@@ -6,16 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy:tap": "node ./scripts/deploy-tap-contract.mjs"
   },
   "dependencies": {
     "@farcaster/miniapp-sdk": "^0.2.0",
     "@farcaster/miniapp-wagmi-connector": "^1.1.0",
     "@farcaster/quick-auth": "^0.0.7",
     "@tanstack/react-query": "^5.81.5",
+    "better-sqlite3": "^12.6.2",
+    "dotenv": "^17.2.3",
     "next": "15.3.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "solc": "^0.8.33",
     "viem": "^2.31.6",
     "wagmi": "^2.16.3"
   },

@@ -1,0 +1,142 @@
+.section {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  min-height: 100vh;
+  justify-content: center;
+}
+
+.header h2 {
+  font-size: 1.9rem;
+  color: #f4f8ff;
+  margin-bottom: 0.5rem;
+}
+
+.kicker {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244, 248, 255, 0.85);
+  margin-bottom: 0.6rem;
+}
+
+.subtitle {
+  color: rgba(244, 248, 255, 0.9);
+}
+
+.animation {
+  position: relative;
+  height: 160px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(92, 146, 255, 0.2), rgba(6, 12, 24, 0.9));
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.orb {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #4cc3ff, rgba(76, 195, 255, 0.05));
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.ring {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1px solid rgba(92, 146, 255, 0.6);
+  animation: spin 6s linear infinite;
+}
+
+.spark {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #f4f8ff;
+  box-shadow: 0 0 20px rgba(244, 248, 255, 0.8);
+  animation: orbit 4s ease-in-out infinite;
+}
+
+.caption {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  color: rgba(244, 248, 255, 0.95);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.stats div {
+  background: rgba(8, 16, 30, 0.65);
+  border-radius: 16px;
+  padding: 1rem;
+  border: 1px solid rgba(92, 146, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.stats span {
+  font-size: 0.8rem;
+  color: rgba(244, 248, 255, 0.85);
+}
+
+.stats strong {
+  font-size: 1.4rem;
+  color: #f4f8ff;
+}
+
+.error {
+  color: #ff8fa3;
+  font-size: 0.9rem;
+}
+
+.cta {
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit {
+  0%,
+  100% {
+    transform: translate(-60px, 20px);
+  }
+  50% {
+    transform: translate(60px, -30px);
+  }
+}

@@ -1,0 +1,88 @@
+.section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header h2 {
+  font-size: 2rem;
+  color: #f4f8ff;
+  margin-bottom: 0.5rem;
+}
+
+.kicker {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244, 248, 255, 0.85);
+  margin-bottom: 0.6rem;
+}
+
+.subtitle {
+  color: rgba(244, 248, 255, 0.9);
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.card {
+  background: rgba(8, 16, 30, 0.65);
+  border-radius: 20px;
+  border: 1px solid rgba(92, 146, 255, 0.2);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card h3 {
+  font-size: 1.3rem;
+  color: #f4f8ff;
+}
+
+.pool {
+  font-size: 0.9rem;
+  color: rgba(244, 248, 255, 0.85);
+}
+
+.places {
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+  color: rgba(244, 248, 255, 0.9);
+  font-size: 0.9rem;
+}
+
+.table {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 50px 1fr 70px;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 12px;
+  background: rgba(6, 12, 24, 0.6);
+  color: rgba(244, 248, 255, 0.9);
+}
+
+.highlight {
+  border: 1px solid rgba(92, 146, 255, 0.6);
+}
+
+.empty {
+  color: rgba(244, 248, 255, 0.85);
+  font-size: 0.9rem;
+}
+
+.cta {
+  display: flex;
+  justify-content: center;
+}

@@ -1,22 +1,21 @@
-# Waitlist Mini App Quickstart
+# Base Tap Challenge (Mini App)
 
-This is a demo Mini App application built using OnchainKit and the Farcaster SDK. Build a waitlist sign-up mini app for your company that can be published to the Base app and Farcaster. 
+A simple Base mini app with two tap modes:
 
-> [!IMPORTANT]  
-> Before interacting with this demo, please review our [disclaimer](#disclaimer) — there are **no official tokens or apps** associated with Cubey, Base, or Coinbase.
+- Daily onchain tap (1 per day, recorded onchain)
+- Rapid offchain tap (1 per second, recorded in DB)
+
+Leaderboards are stored in a local SQLite database.
 
 ## Prerequisites
 
-Before getting started, make sure you have:
-
-* Base app account
-* A [Farcaster](https://farcaster.xyz/) account
-* [Vercel](https://vercel.com/) account for hosting the application
-* [Coinbase Developer Platform](https://portal.cdp.coinbase.com/) Client API Key
+- Base app account
+- A funded Base wallet for deployment (small amount of ETH for gas)
+- [Vercel](https://vercel.com/) account for hosting the application
 
 ## Getting Started
 
-### 1. Clone this repository 
+### 1. Clone this repository
 
 ```bash
 git clone https://github.com/base/demos.git
@@ -31,29 +30,45 @@ npm install
 
 ### 3. Configure environment variables
 
-Create a `.env.local` file and add your environment variables:
+Create a `.env.local` file:
 
 ```bash
-NEXT_PUBLIC_PROJECT_NAME="Your App Name"
-NEXT_PUBLIC_ONCHAINKIT_API_KEY=<Replace-WITH-YOUR-CDP-API-KEY>
-NEXT_PUBLIC_URL=
+NEXT_PUBLIC_URL=http://localhost:3000
+NEXT_PUBLIC_TAP_CONTRACT_ADDRESS=
+NEXT_PUBLIC_PAYMASTER_URL=
+BASE_RPC_URL=https://mainnet.base.org
+DEPLOYER_PRIVATE_KEY=
 ```
 
-### 4. Run locally:
+> `DEPLOYER_PRIVATE_KEY` is only needed to deploy the tap contract.
+
+### 4. Deploy the onchain tap contract
+
+```bash
+npm run deploy:tap
+```
+
+Copy the deployed address into `NEXT_PUBLIC_TAP_CONTRACT_ADDRESS`, then restart the dev server.
+
+### 5. Configure Base Paymaster (gasless)
+
+1. Go to the Coinbase Developer Platform Paymaster tool.
+2. Create/select your project.
+3. Enable the Paymaster and copy the **RPC URL**.
+4. Allowlist your `DailyTap` contract and the `tap()` function.
+5. Set per-user limits (e.g., 1 UserOperation per day).
+
+Paste the RPC URL into `NEXT_PUBLIC_PAYMASTER_URL`.
+
+### 6. Run locally:
 
 ```bash
 npm run dev
 ```
 
-## Customization
+## Local database
 
-### Update Manifest Configuration
-
-The `minikit.config.ts` file configures your manifest located at `app/.well-known/farcaster.json`.
-
-**Skip the `accountAssociation` object for now.**
-
-To personalize your app, change the `name`, `subtitle`, and `description` fields and add images to your `/public` folder. Then update their URLs in the file.
+SQLite database is created at `data/leaderboard.db`.
 
 ## Deployment
 
@@ -67,12 +82,12 @@ You should have a URL deployed to a domain similar to: `https://your-vercel-proj
 
 ### 2. Update environment variables
 
-Add your production URL to your local `.env` file:
+Add your production URL and contract address:
 
 ```bash
-NEXT_PUBLIC_PROJECT_NAME="Your App Name"
-NEXT_PUBLIC_ONCHAINKIT_API_KEY=<Replace-WITH-YOUR-CDP-API-KEY>
 NEXT_PUBLIC_URL=https://your-vercel-project-name.vercel.app/
+NEXT_PUBLIC_TAP_CONTRACT_ADDRESS=0x...
+BASE_RPC_URL=https://mainnet.base.org
 ```
 
 ### 3. Upload environment variables to Vercel
@@ -80,9 +95,9 @@ NEXT_PUBLIC_URL=https://your-vercel-project-name.vercel.app/
 Add environment variables to your production environment:
 
 ```bash
-vercel env add NEXT_PUBLIC_PROJECT_NAME production
-vercel env add NEXT_PUBLIC_ONCHAINKIT_API_KEY production
 vercel env add NEXT_PUBLIC_URL production
+vercel env add NEXT_PUBLIC_TAP_CONTRACT_ADDRESS production
+vercel env add BASE_RPC_URL production
 ```
 
 ## Account Association
@@ -96,17 +111,17 @@ vercel env add NEXT_PUBLIC_URL production
 
 ### 2. Update Configuration
 
-Update your `minikit.config.ts` file to include the `accountAssociation` object:
+Update `farcaster.config.ts` to include the `accountAssociation` object:
 
 ```ts
-export const minikitConfig = {
+export const farcasterConfig = {
     accountAssociation: {
         "header": "your-header-here",
         "payload": "your-payload-here",
         "signature": "your-signature-here"
     },
-    frame: {
-        // ... rest of your frame configuration
+    miniapp: {
+        // ... rest of your miniapp configuration
     },
 }
 ```
@@ -133,7 +148,7 @@ To publish your app, create a post in the Base app with your app's URL.
 
 ## Learn More
 
-For detailed step-by-step instructions, see the [Create a Mini App tutorial](https://docs.base.org/docs/mini-apps/quickstart/create-new-miniapp/) in the Base documentation.
+For detailed step-by-step instructions, see the [Create a Mini App tutorial](https://docs.base.org/mini-apps/quickstart/create-new-miniapp).
 
 
 ---

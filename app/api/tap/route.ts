@@ -63,9 +63,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'Transaction not found' }, { status: 404 });
     }
 
-    if (!tx?.to || tx.to.toLowerCase() !== TAP_CONTRACT_ADDRESS.toLowerCase()) {
-      return NextResponse.json({ message: 'Invalid contract target' }, { status: 400 });
-    }
     try {
       const decoded = decodeFunctionData({
         abi: TAP_CONTRACT_ABI,

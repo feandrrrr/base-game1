@@ -26,7 +26,7 @@ export const farcasterConfig = {
     splashBackgroundColor: "#060b16",
     homeUrl: ROOT_URL,
     webhookUrl: `${ROOT_URL}/api/webhook`,
-    primaryCategory: "game",
+    primaryCategory: "games",
     tags: ["tap", "leaderboard", "usdc", "base", "miniapp"],
     heroImageUrl: `${ROOT_URL}/blue-hero.png`, 
     tagline: "No candy tokens — only real dollars.",

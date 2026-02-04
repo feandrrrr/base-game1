@@ -24,3 +24,18 @@
   font-weight: 600;
   color: rgba(244, 248, 255, 0.95);
 }
+
+.connect {
+  border: none;
+  background: rgba(76, 195, 255, 0.2);
+  color: #f4f8ff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.connect:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

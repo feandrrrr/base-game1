@@ -105,6 +105,12 @@
   font-size: 0.9rem;
 }
 
+.debug {
+  color: rgba(244, 248, 255, 0.75);
+  font-size: 0.75rem;
+  word-break: break-all;
+}
+
 .cta {
   display: flex;
   justify-content: center;

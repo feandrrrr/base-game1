@@ -22,6 +22,7 @@ export function DailyTap() {
   const { context } = useMiniApp();
   const [player, setPlayer] = useState<PlayerRecord | null>(null);
   const [error, setError] = useState('');
+  const [debugInfo, setDebugInfo] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
 
@@ -46,6 +47,7 @@ export function DailyTap() {
 
   const handleTap = async () => {
     setError('');
+    setDebugInfo(null);
     setIsLoading(true);
     try {
       if (!address) {
@@ -60,6 +62,12 @@ export function DailyTap() {
       const baseCapabilities = capabilities[base.id];
       const supportsPaymaster = baseCapabilities?.paymasterService?.supported;
       const paymasterUrl = process.env.NEXT_PUBLIC_PAYMASTER_URL;
+      const paymasterHost = paymasterUrl ? new URL(paymasterUrl).host : 'missing';
+      const debugLine = `contract=${TAP_CONTRACT_ADDRESS} paymaster=${paymasterHost} supported=${Boolean(
+        supportsPaymaster
+      )}`;
+      setDebugInfo(debugLine);
+      console.info('Daily tap debug:', debugLine);
       if (!supportsPaymaster || !paymasterUrl) {
         setError('Paymaster is not configured. Open the app inside Base and set the Paymaster URL.');
         return;
@@ -75,6 +83,7 @@ export function DailyTap() {
               abi: TAP_CONTRACT_ABI,
               functionName: 'tap',
             }),
+            value: 0n,
           },
         ],
         capabilities: {
@@ -144,6 +153,7 @@ export function DailyTap() {
       />
 
       {error && <p className={styles.error}>{error}</p>}
+      {debugInfo && <p className={styles.debug}>{debugInfo}</p>}
 
       <div className={styles.stats}>
         <div>

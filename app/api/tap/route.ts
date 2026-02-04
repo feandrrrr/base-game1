@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { decodeEventLog, decodeFunctionData, isAddress } from 'viem';
+import { decodeEventLog, isAddress } from 'viem';
 
 import type { Mode } from '@/entities/player/types';
 import { TAP_CONTRACT_ABI, TAP_CONTRACT_ADDRESS } from '@/shared/config/contracts';
@@ -51,14 +51,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'Wallet mismatch for this player' }, { status: 403 });
     }
 
-    let tx;
     let receipt;
     try {
       receipt = await basePublicClient.getTransactionReceipt({ hash: txHash });
       if (receipt.status !== 'success') {
         return NextResponse.json({ message: 'Transaction failed' }, { status: 400 });
       }
-      tx = await basePublicClient.getTransaction({ hash: txHash });
     } catch {
       return NextResponse.json({ message: 'Transaction not found' }, { status: 404 });
     }

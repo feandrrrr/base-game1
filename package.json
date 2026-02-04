@@ -27,6 +27,7 @@
     "@eslint/eslintrc": "^3",
     "@next/eslint-plugin-next": "^15.3.4",
     "@react-native-async-storage/async-storage": "^1.24.0",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

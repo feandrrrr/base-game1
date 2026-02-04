@@ -83,7 +83,6 @@ export function DailyTap() {
               abi: TAP_CONTRACT_ABI,
               functionName: 'tap',
             }),
-            value: 0n,
           },
         ],
         capabilities: {
